@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Management Platform</title>
+    <style>
+        /* Custom CSS for Frontend Styling */
+
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Set font family */
+            background-color: #212529; /* Dark background color */
+            color: #fff; /* Light text color */
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #343a40; /* Dark background color */
+        }
+
+        .navbar-brand,
+        .navbar-nav .nav-link {
+            color: #fff; /* Light text color */
+        }
+
+        .navbar-brand:hover,
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa; /* Hover text color */
+        }
+
+        .navbar-nav .active .nav-link {
+            color: #f8f9fa; /* Active link text color */
+        }
+
+        /* Forms */
+        .form-control {
+            background-color: #444; /* Darker background color */
+            color: #fff; /* Light text color */
+            border: 1px solid #555; /* Border color */
+            border-radius: 0; /* Remove border-radius */
+            box-shadow: none; /* Remove box shadow */
+        }
+
+        .form-control:focus {
+            background-color: #555; /* Darker background color on focus */
+            color: #fff; /* Light text color on focus */
+            border-color: #007bff; /* Border color on focus */
+            box-shadow: none; /* Remove box shadow */
+        }
+
+        /* Buttons */
+        .btn {
+            border-radius: 0; /* Remove border-radius */
+            box-shadow: none; /* Remove box shadow */
+        }
+
+        .btn-outline-success {
+            color: #28a745; /* Success button text color */
+            border-color: #28a745; /* Success button border color */
+            background-color: transparent; /* Transparent background color */
+        }
+
+        .btn-outline-success:hover {
+            background-color: #218838; /* Darker hover background color */
+            color: #fff; /* Hover text color */
+        }
+
+        .btn-outline-success:focus {
+            box-shadow: none; /* Remove box shadow on focus */
+        }
+
+        /* Modal */
+        .modal-content {
+            background-color: #333; /* Dark modal background color */
+            color: #fff; /* Light modal text color */
+            border: 0; /* Remove border */
+            border-radius: 0; /* Remove border-radius */
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5); /* Add box shadow */
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #555; /* Modal header border color */
+        }
+
+        .modal-footer {
+            border-top: 1px solid #555; /* Modal footer border color */
+        }
+
+        /* Custom classes */
+        .text-primary {
+            color: #007bff !important; /* Primary text color */
+        }
+
+        .bg-dark {
+            background-color: #343a40 !important; /* Dark background color */
+        }
+
+        .bg-secondary {
+            background-color: #6c757d !important; /* Secondary background color */
+        }
+    </style>
+</head>
+<body>
+    <!-- Add your HTML content here -->
+
+    <!-- Example Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Image Management Platform</a>
+        <!-- Add your navbar links here -->
+    </nav>
+
+    <!-- Example Form -->
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1" class="text-primary">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <button type="submit" class="btn btn-outline-success">Submit</button>
+    </form>
+
+    <!-- Add your other HTML content here -->
+
+</body>
+</html>

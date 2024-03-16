@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-dark text-light">
+                    <h3 class="card-title">Upload Image</h3>
+                </div>
+                <div class="card-body bg-dark">
+                    <form id="uploadForm" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="county" class="form-label">County:</label>
+                            <input type="text" class="form-control" id="county" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="girlName" class="form-label">Girl's Name:</label>
+                            <input type="text" class="form-control" id="girlName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Select Image:</label>
+                            <input type="file" class="form-control" id="image" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description:</label>
+                            <textarea class="form-control" id="description" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-outline-success">Upload Image</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<script>
+    // Add JavaScript code here
+</script>

@@ -1,0 +1,50 @@
+<!-- Dynamic Delete Confirmation Modals -->
+<div id="deleteModalsContainer"></div>
+
+<script>
+    // Image data containing information about images
+    const imageData = [
+        { id: 1, name: "Image 1", path: "/path/to/image1.jpg" },
+        { id: 2, name: "Image 2", path: "/path/to/image2.jpg" },
+        // Add more image data here
+    ];
+
+    // Function to create delete confirmation modal for each image
+    function createDeleteModal(image) {
+        const modal = document.createElement('div');
+        modal.className = 'modal fade';
+        modal.id = `deleteModal${image.id}`;
+        modal.tabIndex = -1;
+        modal.setAttribute('aria-labelledby', `deleteModalLabel${image.id}`);
+        modal.setAttribute('aria-hidden', 'true');
+
+        modal.innerHTML = `
+            <div class="modal-dialog">
+                <div class="modal-content bg-dark text-light">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel${image.id}">Confirm Deletion</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete ${image.name}?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" onclick="deleteImage(${image.id})">Delete</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('deleteModalsContainer').appendChild(modal);
+    }
+
+    // Function to delete image (replace with your actual delete logic)
+    function deleteImage(imageId) {
+        // Implement your delete logic here
+        console.log(`Deleting image with ID ${imageId}`);
+    }
+
+    // Loop through image data and create delete modals
+    imageData.forEach(image => createDeleteModal(image));
+</script>

@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Images by County</h1>
+    <div class="btn-group mb-3" role="group">
+        <button type="button" class="btn btn-primary" id="listViewBtn">List View</button>
+        <button type="button" class="btn btn-primary" id="iconViewBtn">Icon View</button>
+    </div>
+    <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search counties...">
+    <div id="countyContainer">
+        <!-- Counties will be dynamically added here -->
+    </div>
+</div>
+{% endblock %}
+
+<script>
+    // Array of Kentucky county names
+    const countyData = [
+        { name: "Adair Co", subdirs: ["Subdir1", "Subdir2", "Subdir3"] },
+        { name: "Allen Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Anderson Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Ballard Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Barren Co", subdirs: ["Subdir1", "Subdir2", "Subdir3"] },
+        { name: "Bath Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Bell Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Boone Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Bourbon Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Boyd Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Boyle Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Bracken Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Breathitt Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Breckinridge Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Bullitt Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Butler Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Caldwell Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Calloway Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Campbell Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Carlisle Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Carroll Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Carter Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Casey Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Christian Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Clark Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Clay Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Clinton Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Crittenden Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Cumberland Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Daviess Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Edmonson Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Elliott Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Estill Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Fayette Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Fleming Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Floyd Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Franklin Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Fulton Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Gallatin Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Garrard Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Grant Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Graves Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Grayson Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Green Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Greenup Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Hancock Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Hardin Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Harlan Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Harrison Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Hart Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Henderson Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Henry Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Hickman Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Hopkins Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Jackson Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Jefferson Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Jessamine Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Johnson Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Kenton Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Knott Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Knox Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Larue Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Laurel Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Lawrence Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Lee Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Leslie Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Letcher Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Lewis Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Lincoln Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Livingston Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Logan Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Lyon Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "McCracken Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "McCreary Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "McLean Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Madison Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Magoffin Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Marion Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Marshall Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Martin Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Mason Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Meade Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Menifee Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Mercer Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Metcalfe Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Monroe Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Montgomery Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Morgan Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Muhlenberg Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Nelson Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Nicholas Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Ohio Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Oldham Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Owen Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Owsley Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Pendleton Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Perry Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Pike Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Powell Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Pulaski Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Robertson Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Rockcastle Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Rowan Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Russell Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Scott Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Shelby Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Simpson Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Spencer Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Taylor Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Todd Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Trigg Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Trimble Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Union Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Warren Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Washington Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Wayne Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Webster Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Whitley Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Wolfe Co", subdirs: ["Subdir1", "Subdir2"] },
+        { name: "Woodford Co", subdirs: ["Subdir1", "Subdir2"] }
+    ];
+
+      function createCountyFolders(view) {
+        const countyContainer = document.getElementById('countyContainer');
+        const searchInput = document.getElementById('searchInput');
+
+        // Filter counties based on search input
+        function filterCounties() {
+            const searchText = searchInput.value.toLowerCase();
+            const filteredCounties = countyData.filter(county => county.name.toLowerCase().includes(searchText));
+            renderCounties(filteredCounties, view);
+        }
+
+        // Render counties based on the selected view
+        function renderCounties(counties, view) {
+            countyContainer.innerHTML = '';
+            counties.forEach(county => {
+                if (view === 'list') {
+                    countyContainer.appendChild(createListItem(county));
+                } else if (view === 'icon') {
+                    countyContainer.appendChild(createIconItem(county));
+                }
+            });
+        }
+
+        // Create list item for county
+        function createListItem(county) {
+            const listItem = document.createElement('div');
+            listItem.className = 'list-group-item';
+            listItem.textContent = county.name;
+            listItem.dataset.state = 'collapsed'; // Initial state is collapsed
+            listItem.addEventListener('click', () => toggleSubdirs(listItem));
+
+            const subdirsContainer = document.createElement('div');
+            subdirsContainer.className = 'subdirs-container';
+            listItem.appendChild(subdirsContainer);
+
+            county.subdirs.forEach(subdir => {
+                const subdirItem = document.createElement('div');
+                subdirItem.className = 'subdir-item';
+                subdirItem.textContent = subdir;
+                subdirsContainer.appendChild(subdirItem);
+            });
+
+            return listItem;
+        }
+
+        // Create icon item for county
+function createIconItem(county) {
+    const iconItem = document.createElement('div');
+    iconItem.className = 'county-icon';
+    iconItem.textContent = county.name;
+    // Add icon styling or image here
+    iconItem.style.background = '#f0f0f0'; // Example background color
+    iconItem.style.border = '1px solid #ccc'; // Example border
+    iconItem.style.borderRadius = '5px'; // Example border radius
+    iconItem.style.width = '100px'; // Example width
+    iconItem.style.height = '100px'; // Example height
+    iconItem.style.textAlign = 'center'; // Example text alignment
+    iconItem.style.lineHeight = '100px'; // Example line height
+    iconItem.style.overflow = 'hidden'; // Hide overflow text
+    iconItem.style.whiteSpace = 'nowrap'; // Prevent text wrapping
+    iconItem.style.textOverflow = 'ellipsis'; // Add ellipsis for overflow text
+
+    return iconItem;
+}
+
+
+        // Toggle visibility of subdirectories
+        function toggleSubdirs(item) {
+            const subdirsContainer = item.querySelector('.subdirs-container');
+            if (item.dataset.state === 'collapsed') {
+                subdirsContainer.style.display = 'block';
+                item.dataset.state = 'expanded';
+            } else {
+                subdirsContainer.style.display = 'none';
+                item.dataset.state = 'collapsed';
+            }
+        }
+
+        // Event listener for search input
+        searchInput.addEventListener('input', filterCounties);
+
+        // Event listener for list view button
+        const listViewBtn = document.getElementById('listViewBtn');
+        listViewBtn.addEventListener('click', () => {
+            renderCounties(countyData, 'list');
+        });
+
+        // Event listener for icon view button
+        const iconViewBtn = document.getElementById('iconViewBtn');
+        iconViewBtn.addEventListener('click', () => {
+            renderCounties(countyData, 'icon');
+        });
+
+        // Initial rendering of counties in list view
+        renderCounties(countyData, 'list');
+    }
+
+    // Call the function to create county folders when the page loads
+    document.addEventListener('DOMContentLoaded', createCountyFolders);
+</script>
+
+<style>
+    .subdirs-container {
+        display: none; /* Initially hide subdirectories */
+        padding-left: 20px; /* Indent subdirectories */
+    }
+    .subdir-item {
+        padding: 5px 0;
+    }
+    .county-icon {
+        display: inline-block;
+        margin: 10px;
+    }
+</style>
